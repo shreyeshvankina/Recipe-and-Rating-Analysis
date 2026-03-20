@@ -242,3 +242,33 @@ This model had the highest accuracy while also accounting for overfitting and co
 - Test Accuracy ≈ 0.69  
 
 The model worked better because we grouped ratings into categories and added details about how complex a recipe is and what's in it.
+
+# Step 8: Fairness Analysis
+
+For fairness analysis, we decided to test whether our model is equally predictive for old and new recipes. Namely, we want to see if the model will be less accurate at predicting the rating of old recipes (before 2008) vs new recipes (2008 and after). We are conducting this test because it would make sense that old recipes have less quality control on reporting accurate calorie count, ingredients, etc.
+
+### Groups
+- **Group X (Old Recipes):** Recipes submitted in 2008 or earlier  
+- **Group Y (New Recipes):** Recipes submitted after 2008  
+
+### Evaluation Metric
+We use **prediction accuracy**, defined as the proportion of recipes where the predicted rating matches the true rating.
+
+### Hypotheses
+- **Null Hypothesis (H₀):** The model predicts ratings equally well for old and new recipes.  
+- **Alternative Hypothesis (H₁):** The model predicts ratings for new recipes more accurately than for old recipes.  
+
+### Test Statistic
+We compute the difference in accuracy: accuracy(new recipes) - accuracy(old recipes), and use a significance level of **α = 0.05**.
+
+### Results
+- **Observed Difference:** 0.0477
+- **p-value:** 0.0
+
+![Permutation Test](assets/permutation_test.png)
+
+### Conclusion
+Since the p-value is **less than 0.05**, we **reject** the null hypothesis. It seems that our model truly is better at predicting recent recipes than older recipes.
+
+
+
